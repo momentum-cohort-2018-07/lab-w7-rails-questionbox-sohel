@@ -13,15 +13,16 @@ class Api::PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
+    
     if @post.save
-      redirect_to @post
+      redirect_to api_posts_path (@post)
     else
       render :new 
     end
   end
 
   def show
-    redirect_to api_user_post_path
+    redirect_to api_post_path
   end
 
   def destroy
@@ -36,7 +37,7 @@ class Api::PostsController < ApplicationController
 
   private
   def post_params
-    params.require(:question).permit(:body, :user_id)
+    params.require(:post).permit(:question, :body, :user_id)
   end
 
 

@@ -1,26 +1,22 @@
 class Api::SessionsController < ApplicationController
   skip_before_action :verify_authentication
   
-  
 
   def create
-    user = User.find(params["user_id"])
-  
-
+    user = User.find_by_username(params[:username])
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
       redirect_to api_root_path
     else
       flash[:error_message] = "Invalid username and/or password."
-      redirect_to api_session_path
+      redirect_to new_api_session_path
     end
   end
 
   def destroy
+    session[:user_id] = nil
+    flash[:notice] = "You've been logged out"
+    redirect_to api_root_path
   end
 
-  private
-  def user_params
-      params.permit(:username, :password)
-  end
 end

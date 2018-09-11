@@ -1,17 +1,12 @@
 <h1 class='h3 mt-5 mb-3 font-weight-normal text-center'>Sign Up</h1>
 
 
-<%= form_with(model: @user, local: true, :html => {:class => 'form-signin col-md-6 offset-md-3'}) do |form| %>
+<%= form_with url: api_users_path, local: true,  :html => {:class => 'form-signin col-md-6 offset-md-3'} do |form| %>
   
 
   <div class="form-group">
     <%= form.label :username %>
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <div class="input-group-text">⇗</div>
-      </div>
-      <%= form.label :username %>
-      <%= form.text_field :username, :class => "form-control" %>
+    <%= form.text_field :username, :class => "form-control", :placeholder => 'username' %>
     </div>
   </div>
 
