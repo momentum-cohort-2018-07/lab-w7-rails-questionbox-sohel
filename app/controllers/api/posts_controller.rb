@@ -1,5 +1,5 @@
 class Api::PostsController < ApplicationController
-  before_action :set_post, only: [:show, :update, :destroy]
+  before_action :set_post, only: [:destroy]
   skip_before_action :verify_authentication
   
   def index
@@ -22,7 +22,8 @@ class Api::PostsController < ApplicationController
   end
 
   def show
-    redirect_to api_post_path
+    @post = Post.find(params[:id])
+    @user = User.find(@post.user_id)
   end
 
   def destroy
@@ -38,6 +39,10 @@ class Api::PostsController < ApplicationController
   private
   def post_params
     params.require(:post).permit(:question, :body, :user_id)
+  end
+
+  def set_post
+    @post = Post.find(params[:id])
   end
 
 

@@ -6,12 +6,20 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-User.delete_all
 
 
-25.times do
+
+75.times do
     User.create!(
         username: Faker::Internet.username,
         password: '12345678'
+    )
+end
+
+50.times do
+    Post.create!(
+        question: Faker::FamousLastWords.last_words,
+        body: Faker::ChuckNorris.fact,
+        user_id: 1 + rand(30),
     )
 end

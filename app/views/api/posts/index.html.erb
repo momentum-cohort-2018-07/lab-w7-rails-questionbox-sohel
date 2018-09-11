@@ -13,13 +13,29 @@
 <%= link_to 'Ask a new question', new_api_post_path %>
 
 <div>
-  <div class='form-signin col-md-6 offset-md-3'>
+  <div class='form-signin col-lg-6 offset-md-3'>
   <% @posts.each do |post| %>
    
-        <div class="form-group"><%= post.question %></div>
-        <div class="form-group"><%= post.body %></div>
-        <div class="form-group"><%= post.user_id %> </div>
-        <div class="form-group"><%= link_to 'Show', api_post_path(post) %></div>
+        <div class="form-group">
+        <strong>Title</strong><br>
+        <textarea class="form-control" rows="1">
+        <%= post.question %></textarea></div>
+        <div class="form-group">
+        <strong> Question </strong><br>
+        <textarea class="form-control" rows="3">
+        <%= post.body %></textarea></div>
+        <div class="form-group">
+        <strong> Posted By ID </strong><br>
+        <%=  post.user_id %> </div>
+        <div class="form-group">
+          <%= link_to 'Show', api_post_path(post) %>
+        </div>
+        <div class="form-group">
+          <% if current_user == post.user_id %>
+          <%= link_to 'Destroy', api_post_path, method: :delete %>
+          <% end %>
+        </div>
+
     
   <% end %>
   </div>
