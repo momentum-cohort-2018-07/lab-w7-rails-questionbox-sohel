@@ -27,7 +27,7 @@ class Api::PostsController < ApplicationController
   end
 
   def destroy
-    if user == current_user
+    if @user == current_user
       @post = Post.find(params:["user_id"])
       @post = @post.find(params:["id"])
       if @post.destroy
@@ -42,7 +42,7 @@ class Api::PostsController < ApplicationController
   end
 
   def set_post
-    @post = Post.find(params[:id])
+    @post = Post.find(params["post_id"])
   end
 
 
