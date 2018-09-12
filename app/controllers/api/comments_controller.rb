@@ -7,6 +7,7 @@ class Api::CommentsController < ApplicationController
     @comment = Comment.new
 
   end
+  
 
   def create
     @post = Post.find(params["post_id"])

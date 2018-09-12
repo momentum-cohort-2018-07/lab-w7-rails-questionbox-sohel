@@ -3,7 +3,7 @@ class Api::PostsController < ApplicationController
   skip_before_action :verify_authentication
   
   def index
-    @posts=Post.all
+    @posts=Post.page(params[:page])
   end
 
   def new
@@ -24,6 +24,7 @@ class Api::PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @user = User.find(@post.user_id)
+    
   end
 
   def destroy

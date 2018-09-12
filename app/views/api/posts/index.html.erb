@@ -8,10 +8,15 @@
     <%= link_to "Log Out", api_session_path, method: :delete %>
     <% end %>
 </div>
-
-
+<div>
 <%= link_to 'Ask a new question', new_api_post_path %>
+</div>
 <%= flash[:notice] %>
+<div class='pt-3'>
+<%= paginate @posts %>
+<%= page_entries_info @posts %>
+</div>
+
 <div>
   
   <% @posts.each do |post| %>
