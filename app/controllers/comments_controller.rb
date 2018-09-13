@@ -1,4 +1,4 @@
-class Api::CommentsController < ApplicationController
+class CommentsController < ApplicationController
   
   
   def new
@@ -19,7 +19,7 @@ class Api::CommentsController < ApplicationController
 
     if @comment.save
       puts 'comment saved successfully'
-      redirect_to api_post_path(@post), notice: 'Reply successfully created.'
+      redirect_to post_path(@post), notice: 'Reply successfully created.'
     else
       puts 'comment not saved'
       puts @comment.errors.messages

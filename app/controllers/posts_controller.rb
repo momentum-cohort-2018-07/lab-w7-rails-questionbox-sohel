@@ -1,4 +1,4 @@
-class Api::PostsController < ApplicationController
+class PostsController < ApplicationController
   before_action :set_post, only: [:destroy]
   skip_before_action :verify_authentication
   
@@ -7,7 +7,7 @@ class Api::PostsController < ApplicationController
   end
 
   def new
-    redirect_to api_root_path, notice: 'You must be logged in to post a question!' if !(current_user)
+    redirect_to root_path, notice: 'You must be logged in to post a question!' if !(current_user)
     @post=Post.new
   end
 
@@ -15,7 +15,7 @@ class Api::PostsController < ApplicationController
     @post = Post.new(post_params)
     
     if @post.save
-      redirect_to api_posts_path (@post)
+      redirect_to posts_path (@post)
     else
       render :new 
     end
@@ -24,7 +24,7 @@ class Api::PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @user = User.find(@post.user_id)
-    
+    @comments = @post.comments
   end
 
   def destroy
@@ -32,7 +32,7 @@ class Api::PostsController < ApplicationController
       @post = Post.find(params:["user_id"])
       @post = @post.find(params:["id"])
       if @post.destroy
-      redirect_to api_user_post_path, notice: 'Question successfully destroyed!'
+      redirect_to user_post_path, notice: 'Question successfully destroyed!'
       end
     end
   end
@@ -43,7 +43,7 @@ class Api::PostsController < ApplicationController
   end
 
   def set_post
-    @post = Post.find(params["post_id"])
+    @post = Post.find(params["post_id"] || params["id"])
   end
 
 

@@ -1,4 +1,4 @@
-class Api::UsersController < ApplicationController
+class UsersController < ApplicationController
     skip_before_action :verify_authentication, only: [:new, :create, :index]
 
     # How can I get error notice to let them know exactly what went wrong??
@@ -8,9 +8,9 @@ class Api::UsersController < ApplicationController
 
         if @user.save
             session[:user_id] = @user.id
-            redirect_to api_root_path, notice: "User successfully created."
+            redirect_to root_path, notice: "User successfully created."
         else
-            redirect_to new_api_user_path, notice: "Something went wrong, please try again."
+            redirect_to new_user_path, notice: "Something went wrong, please try again."
         end
     end
     def index
@@ -21,7 +21,7 @@ class Api::UsersController < ApplicationController
     end
 
     def show
-        @user = User.find(params[:user_id])
+        @user = User.find(params[:id])
         @posts = @user.posts
     end
 

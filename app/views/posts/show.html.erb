@@ -1,0 +1,36 @@
+<h1>Post Details</h1>
+
+<p>
+  <strong>Question:</strong>
+  <%= @post.question %>
+</p>
+
+<p>
+  <strong>Body:</strong>
+  <%= Redcarpet::Markdown.new(Redcarpet::Render::HTML).render(@post.body).html_safe %>
+</p>
+
+<p>
+  <strong>Username:</strong>
+  <%= User.find(@post.user_id).username %>
+<p>
+
+<p>
+    <% if current_user.id == @post.user_id %>
+        <%= link_to 'Destroy', post_path(@post), method: :delete %>
+    <% end %>
+</p>
+
+<p>
+    <% if current_user %>
+    <%= link_to 'Comment', new_post_comment_path(post_id:@post.id) %>	
+    <% end %>
+</p>
+
+<br>
+ <% @comments.each do |comment| %>
+   <em>By User:</em> <%= User.find(comment.user_id).username %><br>
+   <em>Comment Body</em>  <%= Redcarpet::Markdown.new(Redcarpet::Render::HTML).render(comment.body).html_safe %><br>
+   <br>
+ <% end %>
+

@@ -1,7 +1,7 @@
 <h1>Create New Post</h1>
 <div>
     <div class='form-signin col-md-6 offset-md-3'>
-        <%= form_with url: api_posts_path, scope: "post", local:true do |form| %>
+        <%= form_with url: posts_path, scope: "post", local:true do |form| %>
            <div class="form-group"> 
             <%= form.label :question %>
             <%= form.text_field :question, :class => "form-control" %>
