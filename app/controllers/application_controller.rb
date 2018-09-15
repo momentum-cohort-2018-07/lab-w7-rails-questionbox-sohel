@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
     
+    
     helper_method :current_user
     helper_method :islogged
     before_action :verify_authentication

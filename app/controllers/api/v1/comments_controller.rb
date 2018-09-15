@@ -1,8 +1,8 @@
-class CommentsController < ApplicationController
-  
-  
+class Api::V1::CommentsController < Api::V1::BaseController
+
   def new
-    redirect_to post_path, notice: 'You must be logged in to comment' if !(current_user)
+    render json: {error: "You don't have permission to access these resources"}, status: :unauthorized
+    if !(current_user)
     @post = Post.find(params["post_id"])
     @comment = Comment.new
 
@@ -18,10 +18,10 @@ class CommentsController < ApplicationController
     @comment = Comment.new(post_id: @post.id, user_id: user_id, body: reply )
 
     if @comment.save
-      redirect_to post_path(@post), notice: 'Reply successfully created.'
+      render json @comment
     else
       
-      render :new
+        render json: @comment.errors, status: :unprocessable_entity
     end
   end
 
@@ -30,6 +30,5 @@ class CommentsController < ApplicationController
   def comment_params
     params.permit(:post_id, comment: [:user_id, :reply] )
   end
-
 
 end

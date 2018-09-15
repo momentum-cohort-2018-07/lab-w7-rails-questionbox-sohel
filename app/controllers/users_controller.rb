@@ -1,9 +1,8 @@
 class UsersController < ApplicationController
     skip_before_action :verify_authentication, only: [:new, :create, :index]
 
-    # How can I get error notice to let them know exactly what went wrong??
-    def create
-        
+    
+    def create 
         @user = User.new(user_params)
 
         if @user.save

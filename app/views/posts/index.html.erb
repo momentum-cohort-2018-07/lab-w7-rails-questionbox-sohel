@@ -3,7 +3,7 @@
 <div>
     <% if !current_user %>
     <div><%= link_to "Login", new_session_path %></div>
-    <div><%= link_to "Register Account", api_user_path %></div>
+    <div><%= link_to "Register Account", new_user_path %></div>
     <% else %>
     <%= link_to "Log Out", session_path, method: :delete %>
     <% end %>
