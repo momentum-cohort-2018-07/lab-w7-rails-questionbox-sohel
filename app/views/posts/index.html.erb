@@ -1,17 +1,16 @@
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse jumbotron">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="localhost:3000">QuestionBox</a>
+      <div class ="display-1"><%= link_to 'QuestionBox', posts_path %>
+      </div>
     </div>
-    <ul class="nav navbar-nav">
-      <li class="active"><a href="localhost:3000">Home</a></li>
-    </ul>
 
     <ul class="nav navbar-nav navbar-right">
       <% if !current_user %>
       <li><%= link_to "Login", new_session_path %> </li>
       <li><%= link_to "Register Account", new_user_path %></li>
       <% else %>
+      <li>Logged in as: <%=current_user.username %></li>
       <li><%= link_to "Log Out", session_path, method: :delete %></li>
       <% end %>
     </ul>

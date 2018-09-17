@@ -1,22 +1,25 @@
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse jumbotron">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="localhost:3000">QuestionBox</a>
+      <div class ="display-1"><%= link_to 'QuestionBox', posts_path %>
+      </div>
     </div>
-    <ul class="nav navbar-nav">
-      <li class="active"><a href="localhost:3000">Home</a></li>
-    </ul>
 
     <ul class="nav navbar-nav navbar-right">
       <% if !current_user %>
       <li><%= link_to "Login", new_session_path %> </li>
       <li><%= link_to "Register Account", new_user_path %></li>
       <% else %>
+      <li>Logged in as: <%=current_user.username %></li>
       <li><%= link_to "Log Out", session_path, method: :delete %></li>
       <% end %>
     </ul>
   </div>
 </nav>
+<div>
+<%= paginate @posts %> 
+<%= page_entries_info @posts %>
+</div>
 
 <h1>Post Details</h1>
 
@@ -48,18 +51,11 @@
 </p>
 
 <br>
+<div>
  <% @comments.each do |comment| %>
-   <ul>
-   <li><em>By User:</em> <%= User.find(comment.user_id).username %></li><br>
-   <li><em>Comment Body</em>  <%= Redcarpet::Markdown.new(Redcarpet::Render::HTML).render(comment.body).html_safe %></li></ul>
-   <br>
-   <%= link_to 'Reply to Comment', new_post_comment_path(post_id:@post.id) %>
-      <% @comments.each do |comment| %>
-      <ul>
-      <li><em>By User:</em> <%= User.find(comment.user_id).username %></li><br>
-      <li><em>Comment Body</em>  <%= Redcarpet::Markdown.new(Redcarpet::Render::HTML).render(comment.body).html_safe %></li></ul>
-      <%= link_to 'Reply to Comment', new_post_comment_path(post_id:@post.id) %>
-      <% end %>
-
+   <em>By User:</em> <%= User.find(comment.user_id).username %><br>
+   <em>Comment Body</em>  <%= Redcarpet::Markdown.new(Redcarpet::Render::HTML).render(comment.body).html_safe %>
+  <br>
  <% end %>
+</div>
 

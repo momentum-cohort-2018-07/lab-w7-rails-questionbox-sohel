@@ -3,6 +3,9 @@ Rails.application.routes.draw do
     resources :posts do
       resources :comments, only: [:create, :new]
     end
+    resources :comments, only: [:create, :new] do
+      resources :comments, only: [:create, :new]
+    end
     root 'posts#index'
     resource :session, only: [:new, :create, :destroy]
     

@@ -1,3 +1,18 @@
+<nav class="navbar navbar-inverse jumbotron">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <div class ="display-1"><%= link_to 'QuestionBox', posts_path %>
+      </div>
+    </div>
+
+    <ul class="nav navbar-nav navbar-right">
+      <% if !current_user %>
+      <li><%= link_to "Register Account", new_user_path %></li>
+      <% end %>
+    </ul>
+  </div>
+</nav>
+
 <h1 class='h3 mb-3 font-weight-normal text-center mt-5'>Log In</h1>
   
   <div class="btn-group">
