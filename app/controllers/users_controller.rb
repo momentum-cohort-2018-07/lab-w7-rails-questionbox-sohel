@@ -14,6 +14,23 @@ class UsersController < ApplicationController
     end
     def index
     end
+    def edit
+    
+    end
+
+    def update
+        if current_user.id != @user_id
+            flash[:notice] = "You cannot update this user"
+        end
+        @user = User.find(params[:id])
+        if @user.update_attributes(user_params)
+          flash[:notice] = "Profile updated"
+          redirect_to @user
+        else
+          flash[:notice] = "Not uploaded"
+          redirect_to @user
+        end
+    end
 
     def new
         @user = User.new
@@ -34,6 +51,6 @@ class UsersController < ApplicationController
 
     private
         def user_params
-            params.permit(:username, :password)
+            params.permit(:username, :password, :photo)
         end
 end

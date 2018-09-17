@@ -5,7 +5,8 @@
     <div><%= link_to "Login", new_session_path %></div>
     <div><%= link_to "Register Account", new_user_path %></div>
     <% else %>
-    <%= link_to "Log Out", session_path, method: :delete %>
+    <div>Logged in as: <%= link_to current_user.username, user_path(id: current_user.id) %></div>
+    <div><%= link_to "Log Out", session_path, method: :delete %></div>
     <% end %>
 </div>
 <div>
