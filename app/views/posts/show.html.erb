@@ -1,3 +1,23 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="localhost:3000">QuestionBox</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="localhost:3000">Home</a></li>
+    </ul>
+
+    <ul class="nav navbar-nav navbar-right">
+      <% if !current_user %>
+      <li><%= link_to "Login", new_session_path %> </li>
+      <li><%= link_to "Register Account", new_user_path %></li>
+      <% else %>
+      <li><%= link_to "Log Out", session_path, method: :delete %></li>
+      <% end %>
+    </ul>
+  </div>
+</nav>
+
 <h1>Post Details</h1>
 
 <p>
@@ -16,7 +36,7 @@
 <p>
 
 <p>
-    <% if current_user.id == @post.user_id %>
+    <% if current_user == @post.user_id %>
         <%= link_to 'Destroy', post_path(@post), method: :delete %>
     <% end %>
 </p>
@@ -29,8 +49,17 @@
 
 <br>
  <% @comments.each do |comment| %>
-   <em>By User:</em> <%= User.find(comment.user_id).username %><br>
-   <em>Comment Body</em>  <%= Redcarpet::Markdown.new(Redcarpet::Render::HTML).render(comment.body).html_safe %><br>
+   <ul>
+   <li><em>By User:</em> <%= User.find(comment.user_id).username %></li><br>
+   <li><em>Comment Body</em>  <%= Redcarpet::Markdown.new(Redcarpet::Render::HTML).render(comment.body).html_safe %></li></ul>
    <br>
+   <%= link_to 'Reply to Comment', new_post_comment_path(post_id:@post.id) %>
+      <% @comments.each do |comment| %>
+      <ul>
+      <li><em>By User:</em> <%= User.find(comment.user_id).username %></li><br>
+      <li><em>Comment Body</em>  <%= Redcarpet::Markdown.new(Redcarpet::Render::HTML).render(comment.body).html_safe %></li></ul>
+      <%= link_to 'Reply to Comment', new_post_comment_path(post_id:@post.id) %>
+      <% end %>
+
  <% end %>
 

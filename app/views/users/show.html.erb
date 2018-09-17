@@ -1,21 +1,50 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="localhost:3000">QuestionBox</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="localhost:3000">Home</a></li>
+    </ul>
+
+    <ul class="nav navbar-nav navbar-right">
+      <% if !current_user %>
+      <li><%= link_to "Login", new_session_path %> </li>
+      <li><%= link_to "Register Account", new_user_path %></li>
+      <% else %>
+      <li><%= link_to "Log Out", session_path, method: :delete %></li>
+      <% end %>
+    </ul>
+  </div>
+</nav>
+
 <h1 class='h3 mt-5 mb-3 font-weight-normal text-center'><%= @user.username %>  </h1>
 
 <% if notice %>
 <p><%= notice %></p>
 <% end %>
 
-<%= link_to "Edit Profile", edit_user_path(@user)
+<%= link_to "Edit Profile", edit_user_path(@user) %>
 
-<div>
-  <% if @user.photo.attached? %>
-    <p>
-      <strong> Profile Photo </strong>
-      <%= image_tag @user.photo, style: "max-width: 100px, max-height: 100px"  %>
-    </p>
-  <% end %>
+
+<% if @user.photo.attached? %>
+  <p>
+    <strong> Profile Photo </strong>
+    <div class = "profphoto">
+      <%= image_tag @user.photo, style: "max-width:15%; max-height: 15%;"  %>
+    </div>
+  </p>
+<% end %>
 </div>
 
-
+<div class="text-center">
+<p> Upload a profile photo: </p>
+  <%= form_with model: @user, local:true do |form| %>
+    <%= form.label :photo %>
+    <%= form.file_field :photo %>
+    <%= form.submit %>
+  <% end %>
+</div>
 <div>
 <%= link_to 'Back', root_path %>
 </div>
