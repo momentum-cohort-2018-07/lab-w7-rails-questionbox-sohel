@@ -1,6 +1,7 @@
 class Api::V1::PostsController < Api::V1::BaseController
     before_action :set_post, only: [:destroy]
-    skip_before_action :verify_authentication
+    skip_before_action :verify_authentication, only: [:index, :show]
+    skip_before_action :verify_authenticity_token, only: :create
     
     def index
       @posts=Post.all
