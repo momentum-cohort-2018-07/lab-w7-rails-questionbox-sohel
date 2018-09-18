@@ -13,6 +13,9 @@ class ApplicationController < ActionController::Base
     end
 
 private
+    def comment_params
+    params.permit(:post_id, comment: [:user_id, :reply] )
+    end
    
     def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]

@@ -7,7 +7,7 @@ class PostsController < ApplicationController
   end
 
   def new
-    redirect_to root_path, notice: 'You must be logged in to post a question!' if !(current_user)
+    redirect_to root_path, flash[:notice] = 'You must be logged in to post a question!' if !(current_user)
     @post=Post.new
   end
 
@@ -27,13 +27,14 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    if @user == current_user
-      @post = Post.find(params:["user_id"])
-      @post = @post.find(params:["id"])
-      if @post.destroy
-      redirect_to user_post_path, notice: 'Question successfully destroyed!'
-      end
+    if @post.user_id == current_user.id
+      @post.destroy
+      redirect_to root_path
+    else
+      redirect_to root_path
+      flash[:notice] = "Must be your question to delete"
     end
+    
   end
 
   private

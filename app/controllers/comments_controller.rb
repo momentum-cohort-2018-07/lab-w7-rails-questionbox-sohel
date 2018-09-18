@@ -7,6 +7,14 @@ class CommentsController < ApplicationController
     @comment = Comment.new
 
   end
+
+  def edit
+    @comment = Comment.find(comment_params)
+  end
+
+  def update
+  end
+
   
 
   def create
@@ -22,6 +30,14 @@ class CommentsController < ApplicationController
     else
       
       render :new
+    end
+  end
+
+  def destroy
+    if @comment.user.id === current_user.id
+      post = @comment.post
+      @comment.destroy
+    redirect_to post_path(id:post.id), notice: 'Comment deleted!' 
     end
   end
 
