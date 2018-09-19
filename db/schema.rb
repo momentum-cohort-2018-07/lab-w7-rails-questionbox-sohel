@@ -12,11 +12,14 @@
 
 ActiveRecord::Schema.define(version: 2018_09_17_220210) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
-    t.integer "record_id", null: false
-    t.integer "blob_id", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
@@ -34,8 +37,8 @@ ActiveRecord::Schema.define(version: 2018_09_17_220210) do
   end
 
   create_table "comments", force: :cascade do |t|
-    t.integer "post_id"
-    t.integer "user_id"
+    t.bigint "post_id"
+    t.bigint "user_id"
     t.string "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -47,7 +50,7 @@ ActiveRecord::Schema.define(version: 2018_09_17_220210) do
 
   create_table "posts", force: :cascade do |t|
     t.text "body"
-    t.integer "user_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "question"
@@ -64,4 +67,7 @@ ActiveRecord::Schema.define(version: 2018_09_17_220210) do
     t.index ["api_token"], name: "index_users_on_api_token"
   end
 
+  add_foreign_key "comments", "posts"
+  add_foreign_key "comments", "users"
+  add_foreign_key "posts", "users"
 end

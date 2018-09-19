@@ -1,4 +1,6 @@
 class Api::V1::UsersController < Api::V1::BaseController
+    
+
     skip_before_action :verify_authentication, only: [:index, :new, :create]
     protect_from_forgery with: :null_session
     def index
@@ -28,10 +30,10 @@ class Api::V1::UsersController < Api::V1::BaseController
     end
 
     def destroy
-        if current_user == @user
-            @user.destroy
+        if  @user.destroy
+            render json: @user, status: :accepted
         else
-            render json: @user.errors, status: :unprocessable_entity
+            render json: @user.errors, status: :unauthorized
         end
     end
 

@@ -5,11 +5,20 @@ class Api::V1::PostsController < Api::V1::BaseController
     
     def index
       @posts=Post.all
-      render json: @posts
+      render json: @posts, status: :accepted
     end
   
     def new
       @post=Post.new
+    end
+
+    def update
+      @post = Post.find(params[:id])
+      if  @post.update(post_params)
+          render json: @post, status: :accepted
+      else
+          render json: @post.errors.messages, status: :unprocessable_entity
+      end
     end
   
     def create
@@ -24,15 +33,15 @@ class Api::V1::PostsController < Api::V1::BaseController
   
     def show
       @post = Post.find(params[:id])
-      @comments = @post.comments
       render json: @post
     end
   
     def destroy
-      if @user == current_user
-        @post = Post.find(params:["user_id"])
-        @post = @post.find(params:["id"])
-        @post.destroy
+        @post = Post.find(params[:id])
+        if  @post.destroy 
+            render json: @post, status: :accepted
+        else 
+            render json: @post.errors.messages, status: :unauthorized
         end
     end
   

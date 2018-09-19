@@ -1,5 +1,7 @@
 class Api::V1::BaseController < ApplicationController 
+  include ActionController::HttpAuthentication::Token::ControllerMethods
   
+  protect_from_forgery with: :null_session
     # disable cookies
     before_action :destroy_session, :verify_authentication
     helper_method :current_user

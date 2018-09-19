@@ -1,7 +1,7 @@
 <nav class="navbar navbar-inverse jumbotron">
   <div class="container-fluid">
     <div class="navbar-header">
-      <div class ="display-1"><%= link_to 'QuestionBox', posts_path %>
+      <div class ="display-1"><%= link_to 'QuestionBox', posts_path, class: "questionbox" %>
       </div>
     </div>
 
@@ -30,6 +30,8 @@
   <div class="col-md-6 offset-md-3">
     <%= @post.question %>
   </div>
+  <br>
+  <br>
   <div class="col-md-6 offset-md-3">
   <strong>Body:</strong>
   </div>

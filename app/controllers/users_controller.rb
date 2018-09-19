@@ -25,7 +25,7 @@ class UsersController < ApplicationController
         if @user.photo.attach(user_params[:photo])
           flash[:notice] = "Profile updated"
           redirect_to @user
-          
+  
         else
           flash[:notice] = "Not uploaded"
           redirect_to @user

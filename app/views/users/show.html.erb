@@ -7,39 +7,41 @@
 
     <ul class="nav navbar-nav navbar-right">
       <% if !current_user %>
-      <li><%= link_to "Login", new_session_path %> </li>
-      <li><%= link_to "Register Account", new_user_path %></li>
+      <li class="pb-2"><%= link_to "Login", new_session_path %> </li>
+      <li class="pb-2"><%= link_to "Register Account", new_user_path %></li>
       <% else %>
-      <li><%=link_to current_user.username, user_path(id:current_user.id)  %></li>
-      <li><%= link_to "Log Out", session_path, method: :delete %></li>
+      <li class="pb-2"><%= link_to "Edit Email", edit_user_path(@user) %></li>
+      <li class="pb-2"><%= link_to 'Back', root_path %></li>
+      <li class="pb-2"><%= link_to "Log Out", session_path, method: :delete %></li>
       <% end %>
     </ul>
   </div>
 </nav>
 
-<h1 class='h3 mt-5 mb-3 font-weight-normal text-center'>Profile Page For: <%= @user.username %> <br>
+<h1 class='h3 mt-5 mb-3 font-weight-normal text-center'>Profile Page For: <%= @user.username.capitalize %> <br>
 User Email: <%= @user.email %> </h1>
 
 <% if notice %>
 <p><%= notice %></p>
 <% end %>
 
-<%= link_to "Edit Profile", edit_user_path(@user) %>
 
-
-<% if @user.photo.attached? %>
-  <p>
-    <strong> Profile Photo </strong>
-    <div>
-      <%= image_tag @user.photo, style: "max-width:15%; max-height: 15%;"  %>
+  <% if @user.photo.attached? %>
+    
+      <div class="text-center mb-2">
+        <strong> Profile Photo </strong>
+      </div>
+    <div class = "container">
+      <div class="row justify-content-center"> 
+        <%= image_tag @user.photo, style: "max-width:150px; max-height: 225px;" %>
+      </div>
     </div>
-  </p>
-<% end %>
-</div>
+  <% end %>
+  
 
 <div class="text-center">
 <% if @user.photo.attached? %>
-<p> Upload a new photo: </p>
+<p> Update Your Profile Photo: </p>
   <%= form_with model: @user, local:true do |form| %>
       <%= form.label :photo %>
       <%= form.file_field :photo %>
@@ -55,7 +57,7 @@ User Email: <%= @user.email %> </h1>
 <% end %>
 </div>
 <div>
-<%= link_to 'Back', root_path %>
+
 </div>
 
 <div>
