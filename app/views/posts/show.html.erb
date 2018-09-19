@@ -66,13 +66,14 @@ Replies
 <div class = "col-md-6 offset-md-3">
     <% @comments.each do |comment| %>
       <strong>Comment:</strong>  
-      <%= Redcarpet::Markdown.new(Redcarpet::Render::HTML).render(comment.body).html_safe %>
+        <%= comment.body %>
+      <br>
       <strong>By User:</strong> 
-      <%= User.find(comment.user_id).username %>
+        <%= User.find(comment.user_id).username.capitalize %>
       <br>
         <p class = "pt-3"><% if comment.user_id === current_user.id %>
         <button type="button" class="btn btn-light">
-          <%= link_to 'Delete', post_path(@post), method: :delete %>
+          <%= link_to 'Delete', post_comment_path(@post, comment), local: true, method: :delete %>
         </button>
         <button type="button" class="btn btn-light">
           <%= link_to 'Edit', edit_post_comment_path(@post, comment) %>

@@ -9,10 +9,17 @@ class CommentsController < ApplicationController
   end
 
   def edit
-    @comment = Comment.find(comment_params)
+    @post = Post.find(params["post_id"])
+    @comment = Comment.find(params[:id])
   end
 
   def update
+    @post = Post.find(params["post_id"])
+    @comment= Comment.find(params[:id])
+    if @comment.user_id === current_user.id
+      @comment.update(comment_params2[:reply])
+      redirect_to post_path(@post), notice: 'Comment edited!'
+    end
   end
 
   
@@ -26,7 +33,7 @@ class CommentsController < ApplicationController
     @comment = Comment.new(post_id: @post.id, user_id: user_id, body: reply )
 
     if @comment.save
-      redirect_to post_path(@post), notice: 'Reply successfully created.'
+      redirect_to post_path(@post), method: :patch, notice: 'Reply successfully created.'
     else
       
       render :new
@@ -34,10 +41,12 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    if @comment.user.id === current_user.id
-      post = @comment.post
+    @post = Post.find(params["post_id"])
+    @comment = Comment.find(params[:id])
+    if @comment.user_id === current_user.id
       @comment.destroy
-    redirect_to post_path(id:post.id), notice: 'Comment deleted!' 
+    redirect_to post_path(@post), notice: 'Comment deleted!' 
+    else flash[:notice] = "Must be your question to delete"
     end
   end
 
@@ -45,6 +54,11 @@ class CommentsController < ApplicationController
 
   def comment_params
     params.permit(:post_id, comment: [:user_id, :reply] )
+  end
+
+  def comment_params2
+    params.require(:comment).permit(:post_id, :user_id, :reply)
+    
   end
 
 
