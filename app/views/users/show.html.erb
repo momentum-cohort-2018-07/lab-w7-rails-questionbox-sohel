@@ -30,7 +30,7 @@ User Email: <%= @user.email %> </h1>
 <% if @user.photo.attached? %>
   <p>
     <strong> Profile Photo </strong>
-    <div class = "profphoto">
+    <div>
       <%= image_tag @user.photo, style: "max-width:15%; max-height: 15%;"  %>
     </div>
   </p>

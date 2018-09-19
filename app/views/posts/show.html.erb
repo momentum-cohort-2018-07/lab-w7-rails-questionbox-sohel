@@ -10,7 +10,7 @@
       <li><%= link_to "Login", new_session_path %> </li>
       <li><%= link_to "Register Account", new_user_path %></li>
       <% else %>
-      <li><%=link_to current_user.username, user_path(id:current_user.id)  %></li>
+      <li><%=link_to current_user.username.capitalize, user_path(id:current_user.id)  %></li>
       <li><%= link_to "Log Out", session_path, method: :delete %></li>
       <% end %>
     </ul>
@@ -40,7 +40,7 @@
   <strong>Username:</strong>
   </div> 
   <div class = "col-md-6 offset-md-3">
-  <%= User.find(@post.user_id).username %>
+  <%= User.find(@post.user_id).username.capitalize %>
   </div>
 </div>
   <div class = "text-center pb-2">
@@ -66,20 +66,22 @@ Replies
 <div class = "col-md-6 offset-md-3">
     <% @comments.each do |comment| %>
       <strong>Comment:</strong>  
-        <%= comment.body %>
-      <br>
+        <%= (comment.body) %>
+        <br>
+        <br>
       <strong>By User:</strong> 
-        <%= User.find(comment.user_id).username.capitalize %>
-      <br>
-        <p class = "pt-3"><% if comment.user_id === current_user.id %>
-        <button type="button" class="btn btn-light">
-          <%= link_to 'Delete', post_comment_path(@post, comment), local: true, method: :delete %>
-        </button>
-        <button type="button" class="btn btn-light">
-          <%= link_to 'Edit', edit_post_comment_path(@post, comment) %>
-        </button>
-        </p>
-      <% end %>
+        <%= link_to User.find(comment.user_id).username.capitalize, user_path(id: comment.user_id) %>
+        <br>
+      <p class = "pt-2 pb-3">
+        <% if comment.user_id === current_user.id %>
+          <button type="button" class="btn btn-light">
+            <%= link_to 'Delete', post_comment_path(@post, comment), local: true, method: :delete %>
+          </button>
+          <button type="button" class="btn btn-light">
+            <%= link_to 'Edit', edit_post_comment_path(@post, comment) %>
+          </button>
+        <% end %> 
+      </p>
     <% end %>
   
 </div>
