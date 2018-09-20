@@ -7,4 +7,16 @@ class User < ApplicationRecord
     has_many :comments, dependent: :destroy
     has_one_attached :photo
     include PgSearch
+    
+    pg_search_scope :search_username, against: [:username]
+    pg_search_scope :search_all_variants,
+        against: [:username, :email],
+        using: {
+            tsearch: { dictionary: 'english' }
+        }
+    pg_search_scope :search_all_partial_matches,
+        against: [:username, :email],
+        using: {
+            tsearch: { prefix: true }
+    }    
 end

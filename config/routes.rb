@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     end
     root 'posts#index'
     resource :session, only: [:new, :create, :destroy]
+    resources :search, only: [:index]
     
     namespace :api do
       namespace :v1 do
