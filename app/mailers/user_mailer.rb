@@ -5,7 +5,10 @@ class UserMailer < ApplicationMailer
         @user = params[:user]
         @url  = 'http://localhost3000'
         mail(to: @user.email, subject: 'Welcome to QuestionBox!')
-      end
+    end
 
-
+    def send_weekly_email
+        @user = params{:user}
+        @user = 'http://localhost:3000'
+        mail(to: @user.email, subject: 'Your Recent Activity')
 end

@@ -9,8 +9,8 @@
       <% if !current_user %>
       <li class="pb-2"><%= link_to "Login", new_session_path %> </li>
       <li class="pb-2"><%= link_to "Register Account", new_user_path %></li>
+      <li class="pb-2"><%= link_to 'Back', root_path %></li>
       <% else %>
-      <li class="pb-2"><%= link_to "Edit Email", edit_user_path(@user) %></li>
       <li class="pb-2"><%= link_to 'Back', root_path %></li>
       <li class="pb-2"><%= link_to "Log Out", session_path, method: :delete %></li>
       <% end %>

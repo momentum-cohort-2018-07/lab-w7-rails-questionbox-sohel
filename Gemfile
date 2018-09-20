@@ -35,6 +35,12 @@ gem 'kaminari'
 # gem 'taps'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
+gem 'delayed_job_active_record'
+gem 'delayed_job'
+gem 'daemons'
+gem 'whenever', require: false
+
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

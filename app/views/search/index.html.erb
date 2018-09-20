@@ -1,4 +1,26 @@
-<h1>Search</h1>
+<nav class="navbar navbar-inverse jumbotron">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <div class ="display-1"><%= link_to 'QuestionBox', posts_path, class: "questionbox" %>
+      </div>
+    </div>
+
+    <ul class="nav navbar-nav navbar-right">
+      <% if !current_user %>
+        <li class="pb-2"><%= link_to "Login", new_session_path %> </li>
+        <limclass="pb-2"><%= link_to "Register Account", new_user_path %></li>
+        <li class="pb-2"><%= link_to 'Back', root_path %></li>
+      <% else %>
+        <li class="pb-2"><%=link_to current_user.username.capitalize, user_path(id:current_user.id)  %></li>
+        <li class="pb-2"><%= link_to "Log Out", session_path, method: :delete %></li>
+        <li class="pb-2"><%= link_to 'Back', root_path %></li>
+      <% end %>
+    </ul>
+  </div>
+</nav>
+
+<h1 class='h3 mt-5 mb-3 font-weight-normal text-center'>Search for Posts</h1>
+
 
 <%= form_tag search_index_path, method: :get do %>
   <p>
@@ -8,10 +30,11 @@
 <% end %>
 
 <section class="results">
-  <% @results.each do |user| %>
-    <h3><%= user.username %></h3>
-    <div class="bio">
-      <p><%= user.email %></p>
+  <% @results.each do |post| %>
+    <p><%= post.body %></p>
+    <div>
+    <p><%= User.find(post.user_id).username %></p>
     </div>
+    <br>
   <% end %>
 </section>

@@ -1,9 +1,9 @@
 class SearchController < ApplicationController
     def index
         if search_params[:search_term].present?
-            @results = User.search_all_partial_matches(search_params[:search_term])
+            @results = Post.search_all_partial_matches(search_params[:search_term])
         else
-            @results = User.all
+            @results = Post.all
         end
     end
     
