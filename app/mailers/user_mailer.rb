@@ -11,4 +11,5 @@ class UserMailer < ApplicationMailer
         @user = params{:user}
         @user = 'http://localhost:3000'
         mail(to: @user.email, subject: 'Your Recent Activity')
+    end
 end

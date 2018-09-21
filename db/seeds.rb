@@ -9,7 +9,7 @@
 
 
 
-25.times do
+40.times do
     User.create!(
         username: Faker::Internet.username,
         password: '12345678',
@@ -17,18 +17,18 @@
     )
 end
 
-25.times do
-    Post.create!(
-        question: Faker::FamousLastWords.last_words,
-        body: Faker::ChuckNorris.fact,
-        user_id: 1 + rand(40),
-    )
-end
+# 25.times do
+#     Post.create!(
+#         question: Faker::FamousLastWords.last_words,
+#         body: Faker::ChuckNorris.fact,
+#         user_id: 1 + rand(40),
+#     )
+# end
 
-100.times do
-    Comment.create!(
-        body: Faker::MichaelScott.quote,
-        user_id: 1 + rand(50),
-        post_id: 1 + rand(50),
-    )
-end
+# 100.times do
+#     Comment.create!(
+#         body: Faker::MichaelScott.quote,
+#         user_id: 1 + rand(50),
+#         post_id: 1 + rand(50),
+#     )
+# end

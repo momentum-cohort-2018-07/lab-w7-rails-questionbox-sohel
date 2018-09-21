@@ -44,10 +44,13 @@ class UsersController < ApplicationController
     end
 
     def destroy
+        @user = User.find(params[:id])
         if current_user == @user
             @user.destroy
+            redirect_to root_path
         else
-            render json: @user.errors, status: :unprocessable_entity
+            flash[:notice] = "Could not delete"
+            redirect_to @user
         end
     end
 

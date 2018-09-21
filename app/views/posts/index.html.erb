@@ -44,7 +44,9 @@
           <%= Redcarpet::Markdown.new(Redcarpet::Render::HTML).render(post.body).html_safe %>
           </p>
           <p class="card-text">
-          <%= link_to User.find(post.user_id).username.capitalize, user_path(id: post.user_id)  %>
+          Posted By: <%= link_to User.find(post.user_id).username.capitalize, user_path(id: post.user_id)  %>
+          <br>
+          Posted On: <%= post.created_at.strftime("%B %d %Y, %l:%M%P") %>
           </p>
           <p class="card-text">
           <%= link_to 'Show', post_path(post) %>

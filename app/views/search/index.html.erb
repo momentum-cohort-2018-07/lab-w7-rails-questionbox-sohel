@@ -21,20 +21,20 @@
 
 <h1 class='h3 mt-5 mb-3 font-weight-normal text-center'>Search for Posts</h1>
 
-
-<%= form_tag search_index_path, method: :get do %>
-  <p>
+<div class = "container">
+  <div class="row justify-content-center"> 
+    <%= form_tag search_index_path, method: :get do %>
     <%= text_field_tag :search_term, params[:search_term] %>
     <%= submit_tag "Search", name: nil %>
-  </p>
-<% end %>
+    <% end %>
+  </div>
+</div>
+<br>
 
-<section class="results">
-  <% @results.each do |post| %>
-    <p><%= post.body %></p>
-    <div>
-    <p><%= User.find(post.user_id).username %></p>
-    </div>
-    <br>
-  <% end %>
-</section>
+    <% @results.each do |post| %>
+      <p><%= post.body %></p>
+      <div>
+      <p><%= User.find(post.user_id).username %></p>
+      </div>
+      <br>
+    <% end %>

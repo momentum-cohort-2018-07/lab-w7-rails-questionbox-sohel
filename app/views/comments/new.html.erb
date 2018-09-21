@@ -11,8 +11,10 @@
       <% if !current_user %>
       <li><%= link_to "Login", new_session_path %> </li>
       <li><%= link_to "Register Account", new_user_path %></li>
+      <li><%= link_to 'Go Back', post_path(id:@post.id), method: :get %></li>
       <% else %>
       <li><%= link_to "Log Out", session_path, method: :delete %></li>
+      <li><%= link_to 'Go Back', post_path(id:@post.id), method: :get %></li>
       <% end %>
     </ul>
   </div>
@@ -36,5 +38,5 @@
         <% end %>
 </div>
 <div>
-<%= link_to 'Go Back', post_path(id:@post.id), method: :get %>
+
 
