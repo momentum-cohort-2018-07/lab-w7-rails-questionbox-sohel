@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:destroy]
+  before_action :set_post, only: [:edit, :update, :destroy]
   skip_before_action :verify_authentication
   
   def index
@@ -20,6 +20,7 @@ class PostsController < ApplicationController
       render :new 
     end
   end
+
 
   def show
     @post = Post.find(params[:id])
