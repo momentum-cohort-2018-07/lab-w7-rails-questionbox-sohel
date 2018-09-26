@@ -1,0 +1,83 @@
+<nav class="navbar navbar-inverse jumbotron">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <div class ="display-1"><%= link_to 'QuestionBox', posts_path, class: "questionbox" %>
+      </div>
+    </div>
+
+    <ul class="nav navbar-nav navbar-right">
+      <% if !current_user %>
+      <li class="pb-2"><%= link_to "Login", new_session_path %> </li>
+      <li class="pb-2"><%= link_to "Register Account", new_user_path %></li>
+      <li class="pb-2"><%= link_to 'Back', root_path %></li>
+      <% else %>
+      <li class="pb-2"><%= link_to 'Back', root_path %></li>
+      <li class="pb-2"><%= link_to "Log Out", session_path, method: :delete %></li>
+      <li class="pb-2"><%= link_to 'Delete Account', user_path, method: :delete %></li>
+      <% end %>
+    </ul>
+  </div>
+</nav>
+
+<h1 class='h3 mt-5 mb-3 font-weight-normal text-center'>Profile Page For: <%= @user.username.capitalize %> <br>
+User Email: <%= @user.email %> </h1>
+
+<% if notice %>
+<p><%= notice %></p>
+<% end %>
+
+
+  <% if @user.photo.attached? %>
+    
+      <div class="text-center mb-2">
+        <strong> Profile Photo </strong>
+      </div>
+    <div class = "container">
+      <div class="row justify-content-center"> 
+        <%= image_tag @user.photo, style: "max-width:150px; max-height: 225px;" %>
+      </div>
+    </div>
+  <% end %>
+  
+
+<div class="text-center">
+<% if @user.photo.attached? %>
+<p> Update Your Profile Photo: </p>
+  <%= form_with model: @user, local:true do |form| %>
+      <%= form.label :photo %>
+      <%= form.file_field :photo %>
+      <%= form.submit %>
+  <% end %>
+<% else %>
+<p> Upload a profile photo: </p>
+  <%= form_with model: @user, local:true do |form| %>
+    <%= form.label :photo %>
+    <%= form.file_field :photo %>
+    <%= form.submit %>
+  <% end %>
+<% end %>
+</div>
+<div>
+
+</div>
+
+<div>
+<% @posts.each do |post| %>
+    <div class="card border-secondary text-center" style="width: 30rem;">
+        <div class="card-body">
+          <h3 class="card-title">
+          <%= post.question %>
+          </h3>
+        </div>
+          <p class="card-text">
+          <%= post.body %>
+          </p>
+          <p class="card-text">
+          <%= link_to 'Show', post_path(post) %>
+          </p>
+  <% end %>
+      
+</div>
+
+
+

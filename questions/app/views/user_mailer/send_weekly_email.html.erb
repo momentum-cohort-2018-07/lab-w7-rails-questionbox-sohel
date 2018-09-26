@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Here is your QuestionBox activity for the past week, <%= @user.username %></h1>
+    <p>
+      <% @posts.each do |post| %>
+        <div>
+         <%= post.question %>
+        </div>
+        <br>
+        <div>
+         <%= post.body %>
+    </p>
+    <p>Thanks for being an active member of our community!</p>
+  </body>
+</html>
