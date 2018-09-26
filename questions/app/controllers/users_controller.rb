@@ -17,20 +17,23 @@ class UsersController < ApplicationController
     def index
     end
 
+    def edit
+        set_user
+    end
+
     def update
+        set_user
         if current_user.id != @user_id
             flash[:notice] = "You cannot update this user"
         end
-        @user = User.find(params[:id])
-        if @user.photo.attach(user_params[:photo])
-          flash[:notice] = "Profile updated"
-          redirect_to @user
-  
+        if @user.update_attributes(user_params)
+            flash[:notice] = "Profile updated"
+            redirect_to @user
         else
-          flash[:notice] = "Not uploaded"
-          redirect_to @user
-          
+            flash[:notice] = "Unsuccesful"
+            redirect_to @user
         end
+       
     end
 
     def new
@@ -38,13 +41,12 @@ class UsersController < ApplicationController
     end
 
     def show
-        @user = User.find(params[:id])
+        set_user
         @posts = @user.posts
-        
     end
 
     def destroy
-        @user = User.find(params[:id])
+        set_user
         if current_user == @user
             @user.destroy
             redirect_to root_path
@@ -60,6 +62,9 @@ class UsersController < ApplicationController
         end
         def user1_params
             params.permit(:username, :password, :photo, :email)
+        end
+        def set_user
+            @user = User.find(params[:id])
         end
         
 end

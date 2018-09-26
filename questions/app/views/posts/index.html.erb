@@ -1,4 +1,4 @@
-<nav class="navbar navbar-inverse jumbotron">
+<nav class="navbar navbar-inverse jumbotron" style="background-color: #F4F7F5;>
   <div class="container-fluid">
     <div class="navbar-header">
       <div class ="display-1"><%= link_to 'QuestionBox', posts_path, class: "questionbox" %>
@@ -43,6 +43,7 @@
         <p class="card-text">
           <%= Redcarpet::Markdown.new(Redcarpet::Render::HTML).render(post.body).html_safe %>
         </p>
+        <br>
         <p class="card-text">
           Posted By: <%= link_to User.find(post.user_id).username.capitalize, user_path(id: post.user_id)  %>
           <br>

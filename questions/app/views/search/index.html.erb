@@ -32,7 +32,7 @@
 <br>
   <div>
     <% @results.each do |post| %>
-      <div class = "loop"
+      <div class = "loop">
         <p class ="resultsbody"><%= post.body %></p>
         <p class= "resultsid">Posted by: <%= User.find(post.user_id).username.capitalize %></p> 
         <p>Posted On: <%= post.created_at.strftime("%B %d %Y, %l:%M%P") %></p>
