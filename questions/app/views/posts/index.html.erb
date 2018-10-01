@@ -32,25 +32,25 @@
 <% end %>
 </div>
 
-<div>
+<div class = "createspace">
   <% @posts.each do |post| %>
     <div class = "loop">
       <h3 class = "questindex">
         <%= link_to post.question, post_path(post) %>
-      </h3>  
-      <p>  
-        <%= Redcarpet::Markdown.new(Redcarpet::Render::HTML).render(post.body).html_safe %>
-      </p>
-      <p class = "postfooters">  
-        Posted By: <%= link_to User.find(post.user_id).username.capitalize, user_path(id: post.user_id)  %>
-        <br>
-        Posted On: <%= post.created_at.strftime("%B %d %Y, %l:%M%P") %>
-        <br>
-        Number of comments: <%= link_to post.comments.count, post_path(post) %>
-        <br>
-      </p>
-    </div>      
-  <% end %>
-        
+      </h3> 
+      <div class="questbody">  
+          <%= Redcarpet::Markdown.new(Redcarpet::Render::HTML).render(post.body).html_safe %>
+        <p class = "postfooters">  
+          Posted By: <%= link_to User.find(post.user_id).username.capitalize, user_path(id: post.user_id), class: "indexlink"  %>
+          <br>
+          Posted On: <%= post.created_at.strftime("%B %d %Y, %l:%M%P") %>
+          <br>
+          Number of comments: <%= link_to post.comments.count, post_path(post), class: "indexlink"%>
+          <br>
+        </p>  
+      </div>
     </div>
+    <br>
+    <br>      
+  <% end %>
 </div>
