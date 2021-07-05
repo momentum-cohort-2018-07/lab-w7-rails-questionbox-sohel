@@ -7,11 +7,11 @@
 
     <ul class="nav navbar-nav navbar-right">
       <% if !current_user %>
-      <li><%= link_to "Login", new_session_path %> </li>
-      <li><%= link_to "Register Account", new_user_path %></li>
+      <li class="pb-2"><%= link_to "Login", new_session_path %> </li>
+      <li class="pb-2"><%= link_to "Register Account", new_user_path %></li>
       <% else %>
-      <li><%=link_to current_user.username.capitalize, user_path(id:current_user.id)  %></li>
-      <li><%= link_to "Log Out", session_path, method: :delete %></li>
+      <li class="pb-2"><%=link_to current_user.username.capitalize, user_path(id:current_user.id)  %></li>
+      <li class="pb-2"><%= link_to "Log Out", session_path, method: :delete %></li>
       <% end %>
     </ul>
   </div>
@@ -21,7 +21,7 @@
   <p class="alert alert-info mt-4" role="alert"><%= notice %></p>
 <% end %>
 </div>
-<
+
 <h1 class="text-center pb-5 mb-5">Post Details</h1>
 <div class = "row">
   <div class="col-md-6 offset-md-3">
@@ -42,23 +42,23 @@
   <strong>Username:</strong>
   </div> 
   <div class = "col-md-6 offset-md-3">
-  <%= User.find(@post.user_id).username.capitalize %>
+  <%= link_to User.find(@post.user_id).username.capitalize, user_path(id: @post.user_id) %>
   </div>
 </div>
   <div class = "text-center pb-2">
-    <% if current_user == @post.user_id %>
-      <button type="button" class="btn btn-light mr-2">
-        <%= link_to 'Destroy', post_path(@post), method: :delete %>
-      </button>
-    <% end %>
-    <%= if post.comments === 0 && post.user_id === current_user.id %>
+    <% if @post.comments.count === 0 && User.find(@post.user_id) === current_user %>
       <button type="button" class="btn btn-light mr-2">
         <%= link_to 'Edit', edit_post_path(@post) %>
       </button>
     <% end %>
+    <% if current_user == User.find(@post.user_id) %>
+      <button type="button" class="btn btn-light mr-2">
+        <%= link_to 'Destroy', post_path(@post), method: :delete %>
+      </button>
+    <% end %>
     <% if current_user %>
      <button type="button" class="btn btn-light">
-        <%= link_to 'Comment', new_post_comment_path(post_id:@post.id) %>	
+    <%= link_to 'Comment', new_post_comment_path(post_id:@post.id) %>	
      </button>
     <% end %>
   </div>

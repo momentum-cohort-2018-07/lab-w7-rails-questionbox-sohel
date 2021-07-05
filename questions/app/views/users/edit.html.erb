@@ -1,0 +1,51 @@
+<nav class="navbar navbar-inverse jumbotron">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <div class ="display-1"><%= link_to 'QuestionBox', posts_path, class: "questionbox" %>
+      </div>
+    </div>
+
+    <ul class="nav navbar-nav navbar-right">
+      <% if !current_user %>
+      <li class="pb-2"><%= link_to "Login", new_session_path %> </li>
+      <li class="pb-2"><%= link_to "Register Account", new_user_path %></li>
+      <li class="pb-2"><%= link_to 'Back', root_path %></li>
+      <% else %>
+      <li class="pb-2"><%= link_to 'Back', root_path %></li>
+      <li class="pb-2"><%= link_to "Log Out", session_path, method: :delete %></li>
+      <li class="pb-2"><%= link_to 'Delete Account', user_path, method: :delete %></li>
+      <% end %>
+    </ul>
+  </div>
+</nav>
+
+<h1 class='h3 mt-5 mb-3 font-weight-normal text-center'>Edit Your Profile: <%= @user.username.capitalize %> <br>
+User Email: <%= @user.email %> </h1>
+
+
+<%= form_with model: @user, method: :patch, local: true,  :html => {:class => 'form-signin col-md-6 offset-md-3'} do |form| %>
+  
+
+  <div class="form-group">
+    <%= form.label :username %>
+    <%= form.text_field :username, :class => "form-control", :placeholder => 'edit username' %>
+  </div>
+  <div class="form-group">
+    <%= form.label :email %>
+    <%= form.text_field :email, :class => "form-control", :placeholder => 'edit email' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :password %>
+    <%= form.password_field :password, class: 'form-control', :placeholder => 'edit password' %>
+  </div>
+
+  <div class="form-group">  
+    <%= form.label :photo %>
+    <%= form.file_field :photo %>
+  </div>
+
+
+  <%= form.submit "Edit my Account", :class => "btn btn-lg btn-info btn-block" %>
+  
+<% end %>
